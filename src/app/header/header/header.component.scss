@@ -1,25 +1,38 @@
 .header{
-    padding: 20px;
+    padding: 5px;
     text-align: center;
     background: #1a60bc;
     color: white;
-    font-size: 30px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     box-shadow: 5px 10px #0c2e5a;
     border-radius: 25px;
+    margin-bottom: 15px;
 }
 
-button{
+button {
     border-radius: 5px;
     background-color: white;
     border: none;
-    font-size: 24px;
+    font-size: 20px;
     margin: 10px;
 }
 
-.buttons{
+
+.signpost{
     display: flex;
     align-items: center;
+}
+
+.auth-signpost {
+    width: 20%;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .auth-button {
+        font-size: 12px;
+        margin: 3px;
+    }
 }

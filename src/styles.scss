@@ -2,5 +2,20 @@
 * {
     font-family: 'Source Sans Pro', sans-serif;
 }
+  
+
+html { background-color: rgb(193, 226, 240); }
     
-    
+
+.middle-field {
+    position: relative;
+    padding-bottom: 60px;
+    margin: auto;
+    align-items: center;
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+    border-style: groove;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
