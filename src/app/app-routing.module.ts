@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './auth/login/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { HospitalComponent } from './hospital/hospital/hospital.component';
-import { PersonalComponent } from './personal/personal/personal.component';
-import { VaccinatedComponent } from './vaccinated/vaccinated/vaccinated.component';
-import { WelcomePageComponent } from './welcome/welcome-page/welcome-page.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { HospitalComponent } from './hospital/hospital.component';
+import { PersonalComponent } from './personal/personal.component';
+import { VaccinatedComponent } from './vaccinated/vaccinated.component';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
