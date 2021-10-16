@@ -3,10 +3,10 @@
     font-family: 'Source Sans Pro', sans-serif;
 }
   
-
 html { background-color: rgb(193, 226, 240); }
-    
 
+
+    
 .middle-field {
     position: relative;
     padding-bottom: 60px;
@@ -17,5 +17,16 @@ html { background-color: rgb(193, 226, 240); }
     border-radius: 10px;
     border-style: groove;
 }
-html, body { height: 100%; }
+
+
+
+.auth-field {
+    position: relative;
+    margin: auto;
+    width: 35%;
+    background-color: white;
+    border-radius: 10px;
+    border-style: groove;
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,1 +1,22 @@
-<p>login works!</p>
+<div class="auth-field">
+    <div>
+        <label>Nemáte konto? </label><a routerLink="/register">Tu</a> <label> si ho môžete vytvoriť.</label>
+    </div>
+    <div fxLayout="row">
+        <mat-form-field appearance="outline">
+            <mat-label>E-mail: </mat-label>
+            <input matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="outline">
+            <mat-label>Heslo: </mat-label>
+            <input matInput>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-flat-button color="primary">Prihlásenie</button>
+    </div>
+    <div>
+        <label>Zabudnuté heslo? Zobraziť nápovedu.</label>
+    </div>
+</div>
