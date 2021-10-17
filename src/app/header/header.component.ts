@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  private selectedButton = 1;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  changeButton(selButton:number){
+    this.selectedButton= selButton;
   }
 
 }
