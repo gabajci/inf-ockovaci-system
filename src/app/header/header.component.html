@@ -1,18 +1,26 @@
 <div class="header">
-    <div style="width: 20%;">
-        <div class="logo">
-            <mat-icon style="padding-top: 4px;">assignment_ind</mat-icon>
-            <H1>POSR</H1>
-        </div>
+    <div class="logo">
+        <mat-icon style="padding-top: 4px;">assignment_ind</mat-icon>
+        <H1>POSR</H1>
     </div>
     <div class="signpost">
-        <button mat-button routerLink="/welcome-page">Úvod</button>
-        <button mat-button routerLink="/hospital">Nemocnice</button>
-        <button mat-button routerLink="/personal">Zdravotníci</button>
-        <button mat-button routerLink="/vaccinated">Zaočkovaní</button>
+        <div>
+            <button [ngClass]="this.selectedTab == 1 ? 'selected-tab' : 'null'" (click)="changeSelectedState(1)"
+                mat-button routerLink="/welcome-page">Úvod</button>
+            <button [ngClass]="this.selectedTab == 2 ? 'selected-tab' : 'null'" (click)="changeSelectedState(2)"
+                mat-button routerLink="/hospital">Nemocnice</button>
+        </div>
+        <div>
+            <button [ngClass]="this.selectedTab == 3 ? 'selected-tab' : 'null'" (click)="changeSelectedState(3)"
+                mat-button routerLink="/personal">Zdravotníci</button>
+            <button [ngClass]="this.selectedTab == 4 ? 'selected-tab' : 'null'" (click)="changeSelectedState(4)"
+                mat-button routerLink="/vaccinated">Zaočkovaní</button>
+        </div>
     </div>
     <div class="auth-signpost">
-        <button routerLink="/login">Prihlásenie</button>
-        <button routerLink="/register">Registrácia</button>
+        <button [ngClass]="this.selectedTab == 5 ? 'selected-tab' : 'null'" (click)="changeSelectedState(5)"
+            routerLink="/login">Prihlásenie</button>
+        <button [ngClass]="this.selectedTab == 6 ? 'selected-tab' : 'null'" (click)="changeSelectedState(6)"
+            routerLink="/register">Registrácia</button>
     </div>
 </div>

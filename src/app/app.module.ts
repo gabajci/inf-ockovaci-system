@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
 import { HospitalComponent } from './hospital/hospital.component';
 import { PersonalComponent } from './personal/personal.component';
 import { VaccinatedComponent } from './vaccinated/vaccinated.component';
@@ -30,7 +29,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AppComponent,
     WelcomePageComponent,
     HeaderComponent,
-    FooterComponent,
     HospitalComponent,
     PersonalComponent,
     VaccinatedComponent,

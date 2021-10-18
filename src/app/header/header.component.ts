@@ -7,15 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  private selectedButton = 1;
+  selectedTab = 1;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedTab =
+      window.location.pathname.includes("welcome-page") ? 1 :
+        window.location.pathname.includes("hospital") ? 2 :
+          window.location.pathname.includes("personal") ? 3 :
+            window.location.pathname.includes("vaccinated") ? 4 :
+              window.location.pathname.includes("login") ? 5 :
+                window.location.pathname.includes("register") ? 6 :0;
   }
 
-  changeButton(selButton:number){
-    this.selectedButton= selButton;
+  changeSelectedState(selButton: number) {
+    this.selectedTab = selButton;
   }
 
 }
