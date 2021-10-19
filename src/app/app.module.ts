@@ -10,6 +10,7 @@ import { VaccinatedComponent } from './vaccinated/vaccinated.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { MatTableModule } from '@angular/material/table';
 
 
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -48,7 +49,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatTabsModule,
     MatIconModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatTableModule
   ],
 
   providers: [],
