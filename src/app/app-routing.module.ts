@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HospitalComponent } from './hospital/hospital.component';
 import { PersonalComponent } from './personal/personal.component';
 import { VaccinatedComponent } from './vaccinated/vaccinated.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
@@ -23,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'hospital',
-    component: HospitalComponent
+    loadChildren: () => import('./hospital/hospitals-module').then(m => m.HospitalsModule)
   },
   {
     path: 'personal',
