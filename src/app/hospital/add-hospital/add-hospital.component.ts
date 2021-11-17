@@ -25,8 +25,10 @@ export class AddHospitalComponent implements OnInit {
   hospitalForm: FormGroup;
   hospitalId: number = 0;
   edit: boolean = false;
+  oldId: Number = 0;
   copy: boolean = false;
-  hospital=<Hospital>{ }
+  hospital = <Hospital>{}
+  hospitalString: String = "Pridaj Nemocnicu";
 
   ngOnInit(): void {
     this.createHospitalForm();
@@ -41,16 +43,18 @@ export class AddHospitalComponent implements OnInit {
 
     if (this.route.snapshot.paramMap.has('id')) {
       this.edit = true;
+      this.hospitalString = "Edituj nemocnicu";
       this.hospitalId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-
+      this.oldId = this.hospitalId;
       this.hospitalService.getHospital(this.hospitalId).subscribe(hospital => {
         this.updateHospitalForm(hospital);
       })
     }
     if (this.route.snapshot.paramMap.has('hospitalId')) {
       this.copy = true;
-
+      this.hospitalString = "Pridaj kópiu nemocnice"
       this.hospitalId = Number.parseInt(this.route.snapshot.paramMap.get('hospitalId'));
+      this.oldId = this.hospitalId;
       this.hospitalService.getHospital(this.hospitalId).subscribe(hospital => {
         this.updateHospitalForm(hospital);
       })
@@ -60,35 +64,38 @@ export class AddHospitalComponent implements OnInit {
 
   createHospitalForm(): void {
     this.hospitalForm = this.fb.group({
-      id: [0, Validators.required],
+      id: [, Validators.required],
       name: ['', Validators.required],
-      postCode: [0, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+      postCode: [, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
     });
   }
 
   updateHospitalForm(hospital: Hospital) {
     this.hospitalForm = this.fb.group({
-      id: [hospital.id, [Validators.required, Validators.maxLength(3)]],
+      id: [hospital.id, Validators.required],
       name: [hospital.name, Validators.required],
       postCode: [hospital.postCode, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]]
     });
   }
 
   onSubmit() {
-
-    if (!this.edit) {
-      this.hospital.id = this.hospitalForm.controls['id'].value;
-    } else {
-      this.hospital.id = this.hospitalId;
-    }
+    this.hospital.id = this.hospitalForm.controls['id'].value;
     this.hospital.name = this.hospitalForm.controls['name'].value;
     this.hospital.postCode = this.hospitalForm.controls['postCode'].value;
 
     if (this.edit) {
+      if (this.oldId != this.hospital.id) {
+
+        return;
+      }
       //overenie, ci je original id nezmenene
-      this.hospitalService.putHospital(this.hospitalId,this.hospital).subscribe(
+      this.hospitalService.putHospital(this.hospitalId, this.hospital).subscribe(
         _ => this.location.back());
     } else if (this.copy) {
+      if (this.oldId == this.hospital.id) {
+        //tu dat toaster
+        return;
+      }
       //overenie, ci je original id ine
       this.hospitalService.postHospital(this.hospital).subscribe(
         _ => this.location.back());

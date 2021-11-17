@@ -1,35 +1,37 @@
-<div class="navigation-panel">
+<div>
     <span>&lt;&nbsp;</span>
     <a routerLink="/hospital">Nemocnice</a>
 </div>
-<div class="title-panel">
-    <div class="header">Nemocnica</div>
+<div>
+    <div>{{this.hospitalString}}</div>
 </div>
-<form [formGroup]="hospitalForm" (ngSubmit)="onSubmit()">
-    <mat-card>
-        <div fxLayout="column">
-            <div class="forms" fxLayoutGap="5%">
-                <div fxFlex="30%">
-                    <mat-form-field>
-                        <input  matInput formControlName="id" placeholder="Id">
-                    </mat-form-field>
-                </div>
-                <div fxFlex="30%">
-                    <mat-form-field>
-                        <input matInput formControlName="name" placeholder="Názov">
-                    </mat-form-field>
-                </div>
-                <div fxFlex="30%">
-                    <mat-form-field>
-                        <input matInput formControlName="postCode" placeholder="PSČ">
-                    </mat-form-field>
+<div style="display: flex; justify-content: center;">
+    <form class="form" [formGroup]="hospitalForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <div fxLayout="column">
+                <div fxLayoutGap="5%">
+                    <div fxFlex="30%">
+                        <mat-form-field>
+                            <input matInput formControlName="id" placeholder="Id">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30%">
+                        <mat-form-field>
+                            <input matInput formControlName="name" placeholder="Názov">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30%">
+                        <mat-form-field>
+                            <input matInput formControlName="postCode" placeholder="PSČ">
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
-        </div>
-    </mat-card>
-    <div class="top-margin">
-        <button mat-raised-button color="primary" type="submit" [disabled]="hospitalForm.invalid" mat-button>
-            Ulož
-        </button>
-    </div>
-</form> 
+            <div style="display: flex; justify-content: center;">
+                <button mat-raised-button color="primary" type="submit" [disabled]="hospitalForm.invalid" mat-button>
+                    Ulož
+                </button>
+            </div>
+        </mat-card>
+    </form>
+</div>

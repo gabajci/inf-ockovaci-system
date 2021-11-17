@@ -1,5 +1,5 @@
 <div class="center">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -18,7 +18,7 @@
 
         <ng-container matColumnDef="actions">
             <!-- actions -->
-            <th mat-header-cell *matHeaderCellDef class="actions-col">
+            <th mat-header-cell *matHeaderCellDef  style="width: 90px;">
                 <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
                     routerLink="/hospital/add">
                     <mat-icon>add_box</mat-icon>Pridaj kódy
