@@ -14,8 +14,7 @@ import { HospitalService } from '../../Core/hospital-service';
 export class HospitalTableComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['id', 'name', 'postCode', 'actions'];
-  hosp: Hospital = { id: 3, name: 'xx', postCode: 12345 };
+  displayedColumns: string[] = ['id', 'name', 'postCode','director','contact','dailyVaccinatedCapacity','breathSupportCapacity', 'actions'];
 
   constructor(
     private hospitalService: HospitalService,

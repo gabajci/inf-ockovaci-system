@@ -29,7 +29,7 @@ export class HospitalService {
   }
 
   putHospital(hospitalId: Number,hospital: Hospital): Observable<Hospital> {
-    return this.http.put<Hospital>('https://localhost:5001/api/hospital/'+hospital.id.toString(),hospital);
+    return this.http.put<Hospital>('https://localhost:5001/api/hospital/'+hospitalId,hospital);
   }
 
   postHospital(hospital: Hospital): Observable<Hospital> {

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Hospital } from 'src/app/Core/hospital';
 import { HospitalService } from 'src/app/Core/hospital-service';
 import { Location } from '@angular/common';
+import { ToasterService } from 'src/app/Core/toaster/toaster-service';
 
 @Component({
   selector: 'add-hospital',
@@ -16,16 +17,15 @@ export class AddHospitalComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private hospitalService: HospitalService,
-    //private toasterService: ToasterService,
+    private toasterService: ToasterService,
     private location: Location,
 
   ) { }
 
   data: Array<Hospital>;
   hospitalForm: FormGroup;
-  hospitalId: number = 0;
+  defHospitalId: number = 0;
   edit: boolean = false;
-  oldId: Number = 0;
   copy: boolean = false;
   hospital = <Hospital>{}
   hospitalString: String = "Pridaj Nemocnicu";
@@ -44,18 +44,18 @@ export class AddHospitalComponent implements OnInit {
     if (this.route.snapshot.paramMap.has('id')) {
       this.edit = true;
       this.hospitalString = "Edituj nemocnicu";
-      this.hospitalId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-      this.oldId = this.hospitalId;
-      this.hospitalService.getHospital(this.hospitalId).subscribe(hospital => {
+      this.defHospitalId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+
+      this.hospitalService.getHospital(this.defHospitalId).subscribe(hospital => {
         this.updateHospitalForm(hospital);
       })
     }
     if (this.route.snapshot.paramMap.has('hospitalId')) {
       this.copy = true;
-      this.hospitalString = "Pridaj kópiu nemocnice"
-      this.hospitalId = Number.parseInt(this.route.snapshot.paramMap.get('hospitalId'));
-      this.oldId = this.hospitalId;
-      this.hospitalService.getHospital(this.hospitalId).subscribe(hospital => {
+      this.hospitalString = "Pridaj kópiu nemocnice";
+
+      this.defHospitalId = Number.parseInt(this.route.snapshot.paramMap.get('hospitalId'));
+      this.hospitalService.getHospital(this.defHospitalId).subscribe(hospital => {
         this.updateHospitalForm(hospital);
       })
     }
@@ -64,46 +64,62 @@ export class AddHospitalComponent implements OnInit {
 
   createHospitalForm(): void {
     this.hospitalForm = this.fb.group({
-      id: [, Validators.required],
       name: ['', Validators.required],
       postCode: [, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+      director: ['', Validators.required],
+      contact: ['', Validators.required],
+      dailyVaccinatedCapacity: [, [Validators.required]],
+      breathSupportCapacity: [, [Validators.required]],
     });
   }
 
   updateHospitalForm(hospital: Hospital) {
     this.hospitalForm = this.fb.group({
-      id: [hospital.id, Validators.required],
       name: [hospital.name, Validators.required],
-      postCode: [hospital.postCode, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]]
+      postCode: [hospital.postCode, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
+      director: [hospital.director, Validators.required],
+      contact: [hospital.contact, Validators.required],
+      dailyVaccinatedCapacity: [hospital.dailyVaccinatedCapacity, [Validators.required]],
+      breathSupportCapacity: [hospital.breathSupportCapacity, [Validators.required]],
     });
   }
 
   onSubmit() {
-    this.hospital.id = this.hospitalForm.controls['id'].value;
+    if (!this.checkOriginality()) {
+      return;
+    }
+
+    this.hospital.id = 0;
     this.hospital.name = this.hospitalForm.controls['name'].value;
     this.hospital.postCode = this.hospitalForm.controls['postCode'].value;
+    this.hospital.director = this.hospitalForm.controls['director'].value;
+    this.hospital.contact = this.hospitalForm.controls['contact'].value;
+    this.hospital.dailyVaccinatedCapacity = this.hospitalForm.controls['dailyVaccinatedCapacity'].value;
+    this.hospital.breathSupportCapacity = this.hospitalForm.controls['breathSupportCapacity'].value;
+
 
     if (this.edit) {
-      if (this.oldId != this.hospital.id) {
-
-        return;
-      }
-      //overenie, ci je original id nezmenene
-      this.hospitalService.putHospital(this.hospitalId, this.hospital).subscribe(
-        _ => this.location.back());
-    } else if (this.copy) {
-      if (this.oldId == this.hospital.id) {
-        //tu dat toaster
-        return;
-      }
-      //overenie, ci je original id ine
-      this.hospitalService.postHospital(this.hospital).subscribe(
+      this.hospital.id = this.defHospitalId;
+      this.toasterService.showToast('Nemocnica bola úspešne editovaná.', 'top-center', true);
+      this.hospitalService.putHospital(this.defHospitalId, this.hospital).subscribe(
         _ => this.location.back());
     } else {
+      this.toasterService.showToast('Nemocnica bola úspešne pridaná.', 'top-center', true);
       this.hospitalService.postHospital(this.hospital).subscribe(
         _ => this.location.back());
     }
+  }
 
+  checkOriginality(): boolean {
+
+    for (var hospital of this.data) {
+      if (hospital.name == this.hospitalForm.controls['name'].value) {
+        this.toasterService.showToast('Takýto názov nemocnice už existuje.', 'top-center', false);
+        return false;
+      }
+    }
+
+    return true;
   }
 }
 

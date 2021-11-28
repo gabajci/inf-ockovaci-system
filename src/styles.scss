@@ -5,6 +5,14 @@
   
 html { background-color: rgb(193, 226, 240);height: 100%; }
 
+.toast {
+    background-color: green;
+}
+
+.toast-invalid {
+    background-color: #ffc7ce;
+    color: red;
+}
 
     
 .middle-field {

@@ -1,28 +1,55 @@
-<div>
+<div class="back-button">
     <span>&lt;&nbsp;</span>
     <a routerLink="/hospital">Nemocnice</a>
 </div>
-<div>
+<div class="title">
     <div>{{this.hospitalString}}</div>
 </div>
 <div style="display: flex; justify-content: center;">
     <form class="form" [formGroup]="hospitalForm" (ngSubmit)="onSubmit()">
         <mat-card>
             <div fxLayout="column">
-                <div fxLayoutGap="5%">
-                    <div fxFlex="30%">
-                        <mat-form-field>
-                            <input matInput formControlName="id" placeholder="Id">
-                        </mat-form-field>
-                    </div>
-                    <div fxFlex="30%">
+                <div class="table" fxLayoutGap="5%">
+                    <div fxLayoutGap="5%">
                         <mat-form-field>
                             <input matInput formControlName="name" placeholder="Názov">
                         </mat-form-field>
                     </div>
-                    <div fxFlex="30%">
+
+                    <div fxLayoutGap="5%">
                         <mat-form-field>
                             <input matInput formControlName="postCode" placeholder="PSČ">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="table" fxLayoutGap="5%">
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="director" placeholder="Riaditeľ">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="contact" placeholder="Kontakt">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="table" fxLayoutGap="5%" >
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="dailyVaccinatedCapacity"
+                                placeholder="Denná kapacita očkovania">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="breathSupportCapacity"
+                                placeholder="Poč. kyslíkovej podpory">
                         </mat-form-field>
                     </div>
                 </div>
