@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Account } from '../Core/account';
+import { AccountService } from '../Core/account-service';
+import { ToasterService } from '../Core/toaster/toaster-service';
 
 @Component({
   selector: 'login',
@@ -8,13 +12,47 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(
+    private accountService: AccountService,
+    private fb: FormBuilder,
+    private router: Router,    
+    private toasterService: ToasterService,
+  ) { }
+
+
+  loginForm: FormGroup;
+  account = <Account>{};
 
   ngOnInit(): void {
+    this.createLoginForm();
   }
 
-  openSnackBar(message: string) {
-    this._snackBar.open("Vaša nápoveda je: ", message);
+  createLoginForm(): void {
+    this.loginForm = this.fb.group({
+      mail: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
+
+  onSubmit(): void {    
+  
+    this.account.id = -1;
+    this.account.mail = this.loginForm.controls["mail"].value;    
+    this.account.password=this.loginForm.controls['password'].value;
+    this.account.admin=0;
+    this.account.storedSalt="";
+
+    this.accountService.postAccount(this.account).subscribe(account => {
+      if(account==null){
+        this.toasterService.showToast('Zadali ste nesprávne údaje.', 'top-center', false);
+      } else if (account.id==-1) {
+        this.toasterService.showToast(' Zadali ste zlé heslo.', 'top-center', false);                
+      } else {
+        this.toasterService.showToast('Prihlásenie bolo úspešne.', 'top-center', true); 
+        this.router.navigateByUrl('/welcome-page');
+      }
+    })
+
   }
 
 }

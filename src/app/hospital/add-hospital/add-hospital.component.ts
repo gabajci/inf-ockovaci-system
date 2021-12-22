@@ -64,10 +64,10 @@ export class AddHospitalComponent implements OnInit {
 
   createHospitalForm(): void {
     this.hospitalForm = this.fb.group({
-      name: ['', Validators.required],
-      postCode: [, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-      director: ['', Validators.required],
-      contact: ['', Validators.required],
+      name: ['', [Validators.required]],
+      postCode: [, [Validators.required,  Validators.pattern('[0-9 ]{5,6}')]],
+      director: ['', [Validators.required]],
+      contact: ['', [Validators.required]],
       dailyVaccinatedCapacity: [, [Validators.required]],
       breathSupportCapacity: [, [Validators.required]],
     });
@@ -75,10 +75,10 @@ export class AddHospitalComponent implements OnInit {
 
   updateHospitalForm(hospital: Hospital) {
     this.hospitalForm = this.fb.group({
-      name: [hospital.name, Validators.required],
-      postCode: [hospital.postCode, [Validators.required, Validators.maxLength(5), Validators.minLength(5)]],
-      director: [hospital.director, Validators.required],
-      contact: [hospital.contact, Validators.required],
+      name: [hospital.name, [Validators.required, Validators.minLength(5)]],
+      postCode: [hospital.postCode, [Validators.required,Validators.pattern('[0-9 ]{5,6}')]],
+      director: [hospital.director, [Validators.required, Validators.minLength(5)]],
+      contact: [hospital.contact, [Validators.required, Validators.minLength(5)]],
       dailyVaccinatedCapacity: [hospital.dailyVaccinatedCapacity, [Validators.required]],
       breathSupportCapacity: [hospital.breathSupportCapacity, [Validators.required]],
     });

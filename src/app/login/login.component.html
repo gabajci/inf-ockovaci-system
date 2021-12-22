@@ -1,21 +1,22 @@
 <div class="auth-field">
-    <div>
+    <div class="space">
         <label>Nemáte konto? </label><a routerLink="/register">Tu</a> <label> si ho môžete vytvoriť.</label>
     </div>
-    <div fxLayout="row">
-        <mat-form-field appearance="outline">
-            <mat-label>E-mail: </mat-label>
-            <input matInput>
-        </mat-form-field>
-        <br>
-        <mat-form-field appearance="outline">
-            <mat-label>Heslo: </mat-label>
-            <input matInput>
-        </mat-form-field>
+    <div class="space">
+        <form [formGroup]="loginForm">
+            <div fxLayout="row">
+                <mat-form-field appearance="outline">
+                    <mat-label>E-mail: </mat-label>
+                    <input formControlName="mail" matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="outline">
+                    <mat-label>Heslo: </mat-label>
+                    <input formControlName="password" type="password" matInput>
+                </mat-form-field>
+            </div>
+        </form>
     </div>
-    <div>
-        <button mat-flat-button color="primary">Prihlásenie</button>
+    <div class="space">
+        <button mat-flat-button color="primary" [disabled]="loginForm.invalid" (click)="onSubmit()">Prihlásenie</button>
     </div>
-    <div>
-        <label>Zabudnuté heslo? Zobraziť </label><a (click)="openSnackBar('nápoveda')">nápovedu.</a>
-</div>
