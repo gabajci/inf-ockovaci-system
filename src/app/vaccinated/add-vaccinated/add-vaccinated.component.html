@@ -1,0 +1,61 @@
+<div class="back-button">
+    <span>&lt;&nbsp;</span>
+    <a routerLink="/vaccinated">Očkovaní</a>
+</div>
+<div class="title">
+    <div>{{this.vaccinatedString}}</div>
+</div>
+<div style="display: flex; justify-content: center;">
+    <form class="form" [formGroup]="vaccinatedForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <div fxLayout="column">
+                <div class="table" fxLayoutGap="5%">
+                    <div *ngIf="!this.edit" fxFlex="45%">
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="personId" placeholder="Id osoby">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div fxFlex="45%">
+                        <mat-form-field>
+                            <input matInput formControlName="hospitalId" placeholder="Id nemocnice">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="table" fxLayoutGap="5%">
+                    <div>
+                        <mat-form-field>
+                            <mat-select formControlName="vaccineName" placeholder="Názov vakcíny">
+                                <mat-option *ngFor="let type of vaccineName" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="vaccineNumber" placeholder="Číslo dávky">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Dátum">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button mat-raised-button color="primary" type="submit" [disabled]="vaccinatedForm.invalid" mat-button>
+                    Ulož
+                </button>
+            </div>
+        </mat-card>
+    </form>
+</div>

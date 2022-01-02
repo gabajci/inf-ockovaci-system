@@ -32,11 +32,11 @@ export class ParamedicService {
     return this.http.put<Paramedic>('https://localhost:5001/api/paramedic/'+paramedicId,paramedic);
   }
 
-  postAccount(account: Paramedic): Observable<Paramedic> {
-    return this.http.post<Paramedic>('https://localhost:5001/api/account', account);
+  postParamedic(paramedic: Paramedic): Observable<Paramedic> {
+    return this.http.post<Paramedic>('https://localhost:5001/api/paramedic', paramedic);
   }
 
-  deleteAccountl(paramedicId: number): Observable<Paramedic> {
+  deleteAccount(paramedicId: number): Observable<Paramedic> {
     return this.http.delete<Paramedic>('https://localhost:5001/api/paramedic/'+paramedicId.toString());
   }
 }

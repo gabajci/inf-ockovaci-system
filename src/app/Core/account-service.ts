@@ -1,24 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HeaderComponent } from '../header/header.component';
 import { Account } from './account';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class AccountService  {
 
-  private data: Array<Account>;
+  private acc: Account = null;
 
-  set accounts(data: Array<Account>) {
-    this.data = data;
+  set account(account: Account) {
+    this.acc = account;
   }
 
-  get accounts(): Array<Account> {
-    return this.data;
+  get account(): Account {
+    return this.acc;
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient) { }
 
   getAllAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>('https://localhost:5001/api/account');

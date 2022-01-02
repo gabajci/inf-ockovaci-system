@@ -2,15 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { PersonalComponent } from './personal/personal.component';
-import { VaccinatedComponent } from './vaccinated/vaccinated.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AccessGuard } from './Core/access-guard';
+import { WhyToVaccinateComponent } from './why-to-vaccinate/why-to-vaccinate.component';
+import { UserOptionsComponent } from './user-options/user-options.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
   {
-    path: 'welcome-page',
+    path: 'welcome-page',    
     component: WelcomePageComponent
+  },
+  {
+    path: 'why-to-vaccinate',
+    component: WhyToVaccinateComponent
   },
   {
     path: 'login',
@@ -22,15 +28,31 @@ const routes: Routes = [
   },
   {
     path: 'hospital',
+    canActivate: [AccessGuard],
     loadChildren: () => import('./hospital/hospitals-module').then(m => m.HospitalsModule)
   },
   {
     path: 'personal',
-    component: PersonalComponent
+    canActivate: [AccessGuard],
+    loadChildren: () => import('./personal/personals-module').then(m => m.PersonalsModule)
   },
   {
     path: 'vaccinated',
-    component: VaccinatedComponent
+    canActivate: [AccessGuard],
+    loadChildren: () => import('./vaccinated/vaccinateds-module').then(m => m.VaccinatedsModule)
+  },
+  {
+    path: 'person',
+    canActivate: [AccessGuard],
+    loadChildren: () => import('./person/persons-module').then(m => m.PersonsModule)
+  },
+  {
+    path: 'access-denied',
+    component: AccessDeniedComponent
+  },
+  {
+    path: 'user-options',
+    component: UserOptionsComponent
   },
 ];
 

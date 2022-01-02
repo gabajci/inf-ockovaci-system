@@ -70,3 +70,52 @@ body {
     position: relative;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+.form {
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.table {
+    display: flex;
+    flex-direction: row;        
+    
+}
+
+.title {
+    padding-left: 15px;
+    padding-top: 5px;
+    font-size: large;
+}
+
+.back-button {
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.center {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;    
+}
+
+.center-filter {
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;   
+    button{
+        height: min-content;
+    }
+}
+
+td {
+    text-align: center;
+}
+
+.space {
+    padding-bottom: 15px;
+    padding-left: 10px;
+}

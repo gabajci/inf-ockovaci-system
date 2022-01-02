@@ -1,4 +1,7 @@
 <div class="center">
+    <h1>Nemocnice</h1>
+</div>
+<div class="center">
     <table mat-table [dataSource]="dataSource">
 
         <ng-container matColumnDef="id">
@@ -48,15 +51,6 @@
             <td mat-cell *matCellDef="let row; let i=index;">
                 <button mat-icon-button matTooltip="Uprav nemocnicu" routerLink="/hospital/edit/{{row.id}}">
                     <mat-icon>edit</mat-icon>
-                </button>
-
-                <button mat-icon-button matTooltip="Vymaž nemocnicu" (click)="openDialog(row.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-
-                <button mat-icon-button matTooltip="Vytvor kópiu nemocnice"
-                    routerLink="/hospital/copy/{{row.id}}">
-                    <mat-icon>file_copy</mat-icon>
                 </button>
             </td>
         </ng-container>

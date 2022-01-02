@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventEmitterService } from '../Core/event-emiter.service';
 
 @Component({
   selector: 'welcome-page',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePageComponent implements OnInit {
   panelOpenState = false;
-  constructor() { }
+  constructor(    
+    private eventEmitterService: EventEmitterService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  changeHeaderBold(state: number): void {
+    this.eventEmitterService.setState(state);
+
   }
 
 }

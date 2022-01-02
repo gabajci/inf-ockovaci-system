@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { AccountService } from 'src/app/Core/account-service';
 import { DeleteDialogComponent } from 'src/app/Core/delete-dialog/delete-dialog.component';
 import { Hospital } from '../../Core/hospital';
 import { HospitalService } from '../../Core/hospital-service';
@@ -14,10 +15,11 @@ import { HospitalService } from '../../Core/hospital-service';
 export class HospitalTableComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['id', 'name', 'postCode','director','contact','dailyVaccinatedCapacity','breathSupportCapacity', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'postCode', 'director', 'contact', 'dailyVaccinatedCapacity', 'breathSupportCapacity'];
 
   constructor(
     private hospitalService: HospitalService,
+    private accountService: AccountService,
     private dialog: MatDialog,
   ) { }
 
@@ -37,6 +39,11 @@ export class HospitalTableComponent implements OnInit {
       this.hospitalService.hospitals = hospital;
     });
 
+    if (this.accountService.account != null) {
+      if (this.accountService.account.admin == 1) {
+        this.displayedColumns = ['id', 'name', 'postCode', 'director', 'contact', 'dailyVaccinatedCapacity', 'breathSupportCapacity', 'actions'];
+      }
+    }
   }
 
   openDialog(id: number): void {

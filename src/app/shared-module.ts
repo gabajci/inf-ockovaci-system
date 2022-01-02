@@ -10,8 +10,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 @NgModule({
     exports: [
         MatSortModule,
@@ -30,7 +35,11 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatTableModule,
         MatSortModule,
         MatCardModule,
-        MatDialogModule,           
+        MatDialogModule,
+        CommonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule
     ],
     declarations: [
     ],

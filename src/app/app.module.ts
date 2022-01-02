@@ -4,14 +4,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { HeaderComponent } from './header/header.component';
-import { PersonalComponent } from './personal/personal.component';
-import { VaccinatedComponent } from './vaccinated/vaccinated.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared-module';
 import { DeleteDialogComponent } from './Core/delete-dialog/delete-dialog.component';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { EventEmitterService } from './Core/event-emiter.service';
+import { WhyToVaccinateComponent } from './why-to-vaccinate/why-to-vaccinate.component';
+import { UserOptionsComponent } from './user-options/user-options.component';
 
 
 @NgModule({
@@ -19,11 +21,12 @@ import { DeleteDialogComponent } from './Core/delete-dialog/delete-dialog.compon
     AppComponent,
     WelcomePageComponent,
     HeaderComponent,
-    PersonalComponent,
-    VaccinatedComponent,
     RegisterComponent,
     LoginComponent,
     DeleteDialogComponent,
+    AccessDeniedComponent,
+    WhyToVaccinateComponent,
+    UserOptionsComponent,
   ],
   imports: [
     SharedModule,
@@ -33,7 +36,7 @@ import { DeleteDialogComponent } from './Core/delete-dialog/delete-dialog.compon
     BrowserAnimationsModule
   ],
 
-  providers: [],
+  providers: [EventEmitterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

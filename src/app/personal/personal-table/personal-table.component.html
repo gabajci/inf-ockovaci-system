@@ -1,0 +1,51 @@
+<div class="center">
+    <h1>Zdravotníci</h1>
+</div>
+<div class="center">
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="hospitalId">
+            <th mat-header-cell *matHeaderCellDef> Id nemocnice </th>
+            <td mat-cell *matCellDef="let element"> {{element.hospitalId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Rola </th>
+            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="yearsInPractise">
+            <th mat-header-cell *matHeaderCellDef> Rokov praxe </th>
+            <td mat-cell *matCellDef="let element"> {{element.yearsInPractise}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <!-- actions -->
+            <th  mat-header-cell *matHeaderCellDef style="width: 90px;">
+                <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
+                    routerLink="/personal/add">
+                    <mat-icon>add_box</mat-icon>Pridaj Zdravotníka
+                </button>
+            </th>
+
+            <td mat-cell *matCellDef="let row; let i=index;">
+                <button mat-icon-button matTooltip="Uprav zdravotníka" routerLink="/personal/edit/{{row.id}}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Vymaž zdravotníka" (click)="openDialog(row.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

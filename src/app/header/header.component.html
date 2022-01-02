@@ -7,6 +7,8 @@
         <div>
             <button [ngClass]="this.selectedTab == 1 ? 'selected-tab' : 'null'" (click)="changeSelectedState(1)"
                 mat-button routerLink="/welcome-page">Úvod</button>
+            <button [ngClass]="this.selectedTab == 8 ? 'selected-tab' : 'null'" (click)="changeSelectedState(8)"
+                mat-button routerLink="/why-to-vaccinate">Prečo sa očkovať</button>
             <button [ngClass]="this.selectedTab == 2 ? 'selected-tab' : 'null'" (click)="changeSelectedState(2)"
                 mat-button routerLink="/hospital">Nemocnice</button>
         </div>
@@ -15,12 +17,18 @@
                 mat-button routerLink="/personal">Zdravotníci</button>
             <button [ngClass]="this.selectedTab == 4 ? 'selected-tab' : 'null'" (click)="changeSelectedState(4)"
                 mat-button routerLink="/vaccinated">Zaočkovaní</button>
+            <button *ngIf="this.isLogged" [ngClass]="this.selectedTab == 7 ? 'selected-tab' : 'null'" (click)="changeSelectedState(7)"
+                mat-button routerLink="/person">Osoby</button>
         </div>
     </div>
-    <div class="auth-signpost">
+    <div *ngIf="!this.isLogged" class="auth-signpost">
         <button [ngClass]="this.selectedTab == 5 ? 'selected-tab' : 'null'" (click)="changeSelectedState(5)"
             routerLink="/login">Prihlásenie</button>
         <button [ngClass]="this.selectedTab == 6 ? 'selected-tab' : 'null'" (click)="changeSelectedState(6)"
             routerLink="/register">Registrácia</button>
+    </div>
+    <div *ngIf="this.isLogged" class="auth-signpost">
+        <button (click)="logout()">Odhlásenie</button>
+        <mat-icon (click)="changeSelectedState(99)" routerLink="/user-options" style="align-self: flex-end;">settings</mat-icon>
     </div>
 </div>

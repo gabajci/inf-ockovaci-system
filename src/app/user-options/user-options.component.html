@@ -1,0 +1,29 @@
+<div class="center">
+    <h1>Zmena údajov</h1>
+</div>
+<div class="auth-field">
+    <form [formGroup]="optionsForm">
+        <div>
+            <div class="fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Staré heslo: </mat-label>
+                    <input type="password" formControlName="oldPassword" matInput>
+                </mat-form-field>
+            </div>
+            <div class="fields">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nové heslo: </mat-label>
+                    <input type="password" formControlName="newPassword" matInput>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Zopakujte heslo: </mat-label>
+                    <input formControlName="newPassword2" type="password" matInput>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+    <div class="space">
+        <button mat-flat-button color="primary" [disabled]="optionsForm.invalid" (click)="onSubmitPassword()">Zmeniť heslo</button>
+    </div>
+</div>

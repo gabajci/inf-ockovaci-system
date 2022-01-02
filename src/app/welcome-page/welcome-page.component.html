@@ -10,8 +10,9 @@
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div>
-                        <a routerLink="/register">Registrácia</a> <br>
-                        <a routerLink="/login">Prihlásenie</a>
+                        <a (click)="changeHeaderBold(6)"  routerLink="/register">Registrácia</a> <br>
+                        <a (click)="changeHeaderBold(5)" routerLink="/login">Prihlásenie</a><br>
+                        <a (click)="changeHeaderBold(8)" routerLink="/why-to-vaccinate">Prečo sa očkovať</a>
                     </div>
                 </mat-expansion-panel>
             </div>

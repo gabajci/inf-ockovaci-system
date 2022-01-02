@@ -1,6 +1,9 @@
+<div class="center">
+    <h1>Registrácia</h1>
+</div>
 <div class="auth-field">
     <div class="space">
-        <label>Máte konto? </label><a routerLink="/login">Prihláste sa</a>
+        <label>Máte konto? </label><a (click)="loginBold()" routerLink="/login">Prihláste sa</a>
     </div>
     <form [formGroup]="registerForm">
         <div>
@@ -29,9 +32,9 @@
         </div>
     </form>
     <div class="space">
-        <mat-checkbox class="example-margin">Súhlasím s podmienkami používania.</mat-checkbox>
+        <mat-checkbox [(ngModel)]="checked" class="example-margin">Súhlasím s podmienkami používania.</mat-checkbox>
     </div>
     <div class="space">
-        <button mat-flat-button color="primary" [disabled]="registerForm.invalid" (click)="onSubmit()">Registrovať</button>
+        <button mat-flat-button color="primary" [disabled]="registerForm.invalid || !checked" (click)="onSubmit()">Registrovať</button>
     </div>
 </div>

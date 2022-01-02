@@ -1,0 +1,51 @@
+<div class="back-button">
+    <span>&lt;&nbsp;</span>
+    <a routerLink="/person">Osoby</a>
+</div>
+<div class="title">
+    <div>{{this.personString}}</div>
+</div>
+<div style="display: flex; justify-content: center;">
+    <form class="form" [formGroup]="personForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <div fxLayout="column">
+                <div class="table" fxLayoutGap="5%">
+                    <div fxLayoutGap="5%">
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="surname" placeholder="Meno">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div fxLayoutGap="5%">
+                        <mat-form-field>
+                            <input matInput formControlName="lastName" placeholder="Priezvisko">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="table" fxLayoutGap="5%">
+                    <div>
+                        <mat-form-field>
+                            <input matInput formControlName="phoneNumber" placeholder="Telefónne číslo">
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="mail" placeholder="E- mail">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button mat-raised-button color="primary" type="submit" [disabled]="personForm.invalid" mat-button>
+                    Ulož
+                </button>
+            </div>
+        </mat-card>
+    </form>
+</div>

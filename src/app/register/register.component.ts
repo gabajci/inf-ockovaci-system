@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from '../Core/account';
 import { AccountService } from '../Core/account-service';
+import { EventEmitterService } from '../Core/event-emiter.service';
 import { ParamedicService } from '../Core/paramedic-service';
 import { ToasterService } from '../Core/toaster/toaster-service';
 
@@ -19,11 +20,13 @@ export class RegisterComponent implements OnInit {
     private paramedicService: ParamedicService,
     private toasterService: ToasterService,
     private router: Router,
+    private eventEmitterService: EventEmitterService
   ) { }
 
 
   registerForm: FormGroup;
   account = <Account>{};
+  checked: boolean;
 
   ngOnInit(): void {
     this.createRegisterForm();
@@ -38,7 +41,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
+  loginBold(): void {
+    this.eventEmitterService.setState(5);
+  }
 
   onSubmit(): void {
     if (this.registerForm.controls["password"].value != this.registerForm.controls["password2"].value) {
@@ -56,13 +61,14 @@ export class RegisterComponent implements OnInit {
       }
     )
 
+
+
     this.account.id = this.registerForm.controls['id'].value;
     this.account.mail = this.registerForm.controls['mail'].value;
     this.account.password = this.registerForm.controls['password'].value;
     this.account.admin = 0
     this.account.storedSalt = "reg";
 
-    //TODO checknut aj ci suhlasil s podmienkami-checkbox
     this.accountService.postAccount(this.account).subscribe(account => {
       if (account == null) {
         this.toasterService.showToast('Tento lekár už má vytvorený účet.', 'top-center', false);
@@ -71,8 +77,12 @@ export class RegisterComponent implements OnInit {
         this.toasterService.showToast('Zadaný e-mail je obsadený.', 'top-center', false);
         return;
       } else {
-        this.toasterService.showToast('Registrácia prebehla úspešne.', 'top-center', true);
+        this.accountService.account = this.account;
         this.router.navigateByUrl('/welcome-page');
+        this.toasterService.showToast('Registrácia prebehla úspešne.', 'top-center', true);
+        this.eventEmitterService.setState(1);
+        localStorage.setItem("user", account.id.toString());
+        localStorage.setItem("admin", '0');
       }
     })
   }

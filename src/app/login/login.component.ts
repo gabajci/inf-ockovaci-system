@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Account } from '../Core/account';
 import { AccountService } from '../Core/account-service';
+import { EventEmitterService } from '../Core/event-emiter.service';
 import { ToasterService } from '../Core/toaster/toaster-service';
 
 @Component({
@@ -15,8 +16,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private fb: FormBuilder,
-    private router: Router,    
+    private router: Router,
     private toasterService: ToasterService,
+    private eventEmitterService: EventEmitterService
   ) { }
 
 
@@ -33,23 +35,35 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
-
-  onSubmit(): void {    
   
+  registerBold(): void {
+    this.eventEmitterService.setState(6);
+  }
+
+  onSubmit(): void {
+
     this.account.id = -1;
-    this.account.mail = this.loginForm.controls["mail"].value;    
-    this.account.password=this.loginForm.controls['password'].value;
-    this.account.admin=0;
-    this.account.storedSalt="";
+    this.account.mail = this.loginForm.controls["mail"].value;
+    this.account.password = this.loginForm.controls['password'].value;
+    this.account.admin = 0;
+    this.account.storedSalt = "";
 
     this.accountService.postAccount(this.account).subscribe(account => {
-      if(account==null){
+      if (account == null) {
         this.toasterService.showToast('Zadali ste nesprávne údaje.', 'top-center', false);
-      } else if (account.id==-1) {
-        this.toasterService.showToast(' Zadali ste zlé heslo.', 'top-center', false);                
+      } else if (account.id == -1) {
+        this.toasterService.showToast('Zadali ste zlé heslo.', 'top-center', false);
       } else {
-        this.toasterService.showToast('Prihlásenie bolo úspešne.', 'top-center', true); 
+        this.accountService.account = account;
         this.router.navigateByUrl('/welcome-page');
+        this.toasterService.showToast('Prihlásenie bolo úspešne.', 'top-center', true);
+        this.eventEmitterService.setState(1);  
+        localStorage.setItem("user",account.id.toString());     
+        if(account.admin==1){
+          localStorage.setItem("admin",'1');
+        } else {
+          localStorage.setItem("admin",'0');
+        }
       }
     })
 

@@ -1,0 +1,55 @@
+<div class="back-button">
+    <span>&lt;&nbsp;</span>
+    <a routerLink="/personal">Zdravotníci</a>
+</div>
+<div class="title">
+    <div>{{this.paramedicString}}</div>
+</div>
+<div style="display: flex; justify-content: center;">
+    <form class="form" [formGroup]="paramedicForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <div fxLayout="column">
+                <div class="table" fxLayoutGap="5%">
+                    <div *ngIf="!this.edit" fxLayoutGap="5%">
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="id" placeholder="Id osoby">
+                        </mat-form-field>
+                    </div>
+
+
+                    <div fxLayoutGap="5%">
+                        <mat-form-field>
+                            <input matInput formControlName="hospitalId" placeholder="Id nemocnice">
+                        </mat-form-field>
+                    </div>
+
+                </div>
+
+                <div class="table" fxLayoutGap="5%">
+                    <div>
+                        <mat-form-field>
+                            <mat-select formControlName="role" placeholder="Rola">
+                                <mat-option *ngFor="let type of roles" [value]="type">
+                                    {{type}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-form-field>
+                            <input matInput maxlength="30" formControlName="yearsInPractise" placeholder="Rokov praxe">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <button mat-raised-button color="primary" type="submit" [disabled]="paramedicForm.invalid" mat-button>
+                    Ulož
+                </button>
+            </div>
+        </mat-card>
+    </form>
+</div>
