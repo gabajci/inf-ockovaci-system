@@ -1,80 +1,170 @@
-<div class="center">
-    <h1>Očkovaní</h1>
-</div>
-<div>
-    <div [formGroup]="filterFormGroup" fxLayout="row" fxLayoutGap="20px" class="center-filter">
+<!------- Desktop ------->
+<ng-template [ngIf]="media.isActive('desktop') && !media.isActive('xs.landscape')">
+    <div class="center">
+        <h1>Očkovaní</h1>
+    </div>
+    <div>
+        <div [formGroup]="filterFormGroup" fxLayout="row" fxLayoutGap="5px" class="center-filter">
+            <mat-form-field>
+                <input matInput type="text" formControlName="personId" placeholder="Id osoby">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" formControlName="hospitalId" placeholder="Id nemocnice">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" formControlName="vaccineName" placeholder="Názov vakcíny">
+            </mat-form-field>
+            <button mat-raised-button (click)="clearFilterFormGroup()">Zruš filtre</button>
+        </div>
+        <div class="center">
+            <table mat-table [dataSource]="dataSource">
+
+                <ng-container matColumnDef="personId">
+                    <th mat-header-cell *matHeaderCellDef> Id osoby </th>
+                    <td mat-cell *matCellDef="let element"> {{element.personId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="hospitalId">
+                    <th mat-header-cell *matHeaderCellDef> Id nemocnice </th>
+                    <td mat-cell *matCellDef="let element"> {{element.hospitalId}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vaccineName">
+                    <th mat-header-cell *matHeaderCellDef> Názov vakcíny </th>
+                    <td mat-cell *matCellDef="let element"> {{element.vaccineName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vaccineNumber">
+                    <th mat-header-cell *matHeaderCellDef> Dávka vakcíny </th>
+                    <td mat-cell *matCellDef="let element"> {{element.vaccineNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef> Dátum očkovania </th>
+                    <td mat-cell *matCellDef="let element"> {{element.date | date:'dd. MM. yyyy'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <!-- actions -->
+                    <th mat-header-cell *matHeaderCellDef style="width: 90px;">
+                        <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
+                            routerLink="/vaccinated/add">
+                            <mat-icon>add_box</mat-icon>Pridaj Očkovaného
+                        </button>
+                    </th>
+
+                    <td mat-cell *matCellDef="let row; let i=index;">
+                        <button mat-icon-button matTooltip="Uprav očkovaného" routerLink="/vaccinated/edit/{{row.id}}">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Vymaž očkovaného" (click)="openDialog(row.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Vytvor kópiu očkovaného"
+                            routerLink="/vaccinated/copy/{{row.id}}">
+                            <mat-icon>file_copy</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+<ng-template [ngIf]="!media.isActive('desktop') || media.isActive('xs.landscape')">
+    <div class="mobile-title-panel">
+        Očkovaní
+        <button mat-raised-button color="primary" routerLink="/vaccinated/add">
+            <mat-icon>add_box</mat-icon>Pridaj Očkovaného
+        </button>
+    </div>
+
+    <div class="mobile-filter-button">
+        <button mat-raised-button (click)="changeFilterVisibility()">
+            Filter {{this.filterSign}}
+        </button>
+    </div>
+
+    <div *ngIf="this.showFilter" [formGroup]="filterFormGroup" class="mobile-filter">
         <mat-form-field fxFlex>
             <input matInput fxFlex type="text" formControlName="personId" placeholder="Id osoby">
         </mat-form-field>
         <mat-form-field fxFlex>
-            <input matInput fxFlex type="text" formControlName="hospitalId" placeholder="Priezvisko">
+            <input matInput fxFlex type="text" formControlName="hospitalId" placeholder="Id nemocnice">
         </mat-form-field>
         <mat-form-field fxFlex>
             <input matInput fxFlex type="text" formControlName="vaccineName" placeholder="Názov vakcíny">
         </mat-form-field>
-        <mat-form-field fxFlex>
-            <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Dátum očkovania">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <button mat-raised-button (click)="clearFilterFormGroup()">Zruš filtre</button>
+        <button mat-raised-button (click)="clearFilterFormGroup()">Zruš filter</button>
     </div>
-    <div class="center">
-        <table mat-table [dataSource]="dataSource">
-
-            <ng-container matColumnDef="personId">
-                <th mat-header-cell *matHeaderCellDef> Id osoby </th>
-                <td mat-cell *matCellDef="let element"> {{element.personId}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="hospitalId">
-                <th mat-header-cell *matHeaderCellDef> Id nemocnice </th>
-                <td mat-cell *matCellDef="let element"> {{element.hospitalId}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="vaccineName">
-                <th mat-header-cell *matHeaderCellDef> Názov vakcíny </th>
-                <td mat-cell *matCellDef="let element"> {{element.vaccineName}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="vaccineNumber">
-                <th mat-header-cell *matHeaderCellDef> Dávka vakcíny </th>
-                <td mat-cell *matCellDef="let element"> {{element.vaccineNumber}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Dátum očkovania </th>
-                <td mat-cell *matCellDef="let element"> {{element.date | date:'dd. MM. yyyy'}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <!-- actions -->
-                <th mat-header-cell *matHeaderCellDef style="width: 90px;">
-                    <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
-                        routerLink="/vaccinated/add">
-                        <mat-icon>add_box</mat-icon>Pridaj Očkovaného
-                    </button>
-                </th>
-
-                <td mat-cell *matCellDef="let row; let i=index;">
-                    <button mat-icon-button matTooltip="Uprav očkovaného" routerLink="/vaccinated/edit/{{row.id}}">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Vymaž očkovaného" (click)="openDialog(row.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Vytvor kópiu očkovaného"
-                        routerLink="/vaccinated/copy/{{row.id}}">
-                        <mat-icon>file_copy</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+    <div *ngFor="let vaccinateds of dataSource?.filteredData" class="mobile-version-item">
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Id:
+            </span>
+            <span>
+                {{ vaccinateds.id }}
+            </span>
+        </div><div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Id osoby:
+            </span>
+            <span>
+                {{ vaccinateds.personId }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Názov nemocnice:
+            </span>
+            <span class="mobile-data">
+                {{ vaccinateds.hospitalId }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Názov vakcíny:
+            </span>
+            <span class="mobile-data">
+                {{ vaccinateds.vaccineName }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Číslo vakcíny:
+            </span>
+            <span class="mobile-data">
+                {{ vaccinateds.vaccineNumber }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Dátum očkovania:
+            </span>
+            <span class="mobile-data">
+                {{ vaccinateds.date | date:'dd. MM. yyyy' }}
+            </span>
+        </div>       
+        <div class="mobile-buttons-bottom">
+            <div>
+                <button mat-icon-button matTooltip="Uprav očkovaného" routerLink="/vaccinated/edit/{{vaccinateds.id}}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Vymaž očkovaného" (click)="openDialog(vaccinateds.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Vytvor kópiu očkovaného"
+                    routerLink="/vaccinated/copy/{{vaccinateds.id}}">
+                    <mat-icon>file_copy</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
-</div>
+</ng-template>

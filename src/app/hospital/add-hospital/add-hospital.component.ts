@@ -68,8 +68,8 @@ export class AddHospitalComponent implements OnInit {
       postCode: [, [Validators.required,  Validators.pattern('[0-9 ]{5,6}')]],
       director: ['', [Validators.required]],
       contact: ['', [Validators.required]],
-      dailyVaccinatedCapacity: [, [Validators.required]],
-      breathSupportCapacity: [, [Validators.required]],
+      dailyVaccinatedCapacity: [, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
+      breathSupportCapacity: [, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
     });
   }
 
@@ -79,16 +79,12 @@ export class AddHospitalComponent implements OnInit {
       postCode: [hospital.postCode, [Validators.required,Validators.pattern('[0-9 ]{5,6}')]],
       director: [hospital.director, [Validators.required, Validators.minLength(5)]],
       contact: [hospital.contact, [Validators.required, Validators.minLength(5)]],
-      dailyVaccinatedCapacity: [hospital.dailyVaccinatedCapacity, [Validators.required]],
-      breathSupportCapacity: [hospital.breathSupportCapacity, [Validators.required]],
+      dailyVaccinatedCapacity: [hospital.dailyVaccinatedCapacity, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
+      breathSupportCapacity: [hospital.breathSupportCapacity, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
     });
   }
 
   onSubmit() {
-    if (!this.checkOriginality()) {
-      return;
-    }
-
     this.hospital.id = 0;
     this.hospital.name = this.hospitalForm.controls['name'].value;
     this.hospital.postCode = this.hospitalForm.controls['postCode'].value;
@@ -104,6 +100,9 @@ export class AddHospitalComponent implements OnInit {
       this.hospitalService.putHospital(this.defHospitalId, this.hospital).subscribe(
         _ => this.location.back());
     } else {
+      if (!this.checkOriginality()) {
+        return;
+      }
       this.toasterService.showToast('Nemocnica bola úspešne pridaná.', 'top-center', true);
       this.hospitalService.postHospital(this.hospital).subscribe(
         _ => this.location.back());

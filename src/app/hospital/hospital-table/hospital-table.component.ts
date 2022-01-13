@@ -5,6 +5,7 @@ import { AccountService } from 'src/app/Core/account-service';
 import { DeleteDialogComponent } from 'src/app/Core/delete-dialog/delete-dialog.component';
 import { Hospital } from '../../Core/hospital';
 import { HospitalService } from '../../Core/hospital-service';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'hospital-table',
@@ -20,7 +21,8 @@ export class HospitalTableComponent implements OnInit {
   constructor(
     private hospitalService: HospitalService,
     private accountService: AccountService,
-    private dialog: MatDialog,
+    private dialog: MatDialog,    
+    public media: MediaObserver,
   ) { }
 
   dataSource!: MatTableDataSource<Hospital>;

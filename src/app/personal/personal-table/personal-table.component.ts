@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountService } from 'src/app/Core/account-service';
@@ -25,6 +26,7 @@ export class PersonalTableComponent implements OnInit {
     private personService: PersonService,
     private dialog: MatDialog,
     private toasterService: ToasterService,
+    public media: MediaObserver,
   ) { }
 
   dataSource!: MatTableDataSource<Paramedic>;

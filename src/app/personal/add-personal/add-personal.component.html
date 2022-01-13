@@ -9,23 +9,19 @@
     <form class="form" [formGroup]="paramedicForm" (ngSubmit)="onSubmit()">
         <mat-card>
             <div fxLayout="column">
-                <div class="table" fxLayoutGap="5%">
-                    <div *ngIf="!this.edit" fxLayoutGap="5%">
+                <div class="table" fxLayoutGap="5px">
+                    <div *ngIf="!this.edit">
                         <mat-form-field>
                             <input matInput maxlength="30" formControlName="id" placeholder="Id osoby">
                         </mat-form-field>
                     </div>
-
-
-                    <div fxLayoutGap="5%">
+                    <div>
                         <mat-form-field>
                             <input matInput formControlName="hospitalId" placeholder="Id nemocnice">
                         </mat-form-field>
                     </div>
-
                 </div>
-
-                <div class="table" fxLayoutGap="5%">
+                <div class="table" fxLayoutGap="5px">
                     <div>
                         <mat-form-field>
                             <mat-select formControlName="role" placeholder="Rola">
@@ -42,8 +38,6 @@
                         </mat-form-field>
                     </div>
                 </div>
-
-
             </div>
             <div style="display: flex; justify-content: center;">
                 <button mat-raised-button color="primary" type="submit" [disabled]="paramedicForm.invalid" mat-button>

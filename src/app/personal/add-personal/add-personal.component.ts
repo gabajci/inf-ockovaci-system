@@ -38,7 +38,7 @@ export class AddPersonalComponent implements OnInit {
 
   ngOnInit(): void {
     this.createHospitalForm();
-    
+
 
 
     if (this.route.snapshot.paramMap.has('id')) {
@@ -64,19 +64,19 @@ export class AddPersonalComponent implements OnInit {
 
   createHospitalForm(): void {
     this.paramedicForm = this.fb.group({
-      id: ['', [Validators.required]],
-      hospitalId: [, [Validators.required]],
+      id: ['', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
+      hospitalId: [, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
       role: [ParamedicRole.zapisovac, [Validators.required]],
-      yearsInPractise: ['', [Validators.required]],
+      yearsInPractise: ['', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
     });
   }
 
   updateHospitalForm(paramedic: Paramedic) {
     this.paramedicForm = this.fb.group({
-      id: [paramedic.id, [Validators.required]],
-      hospitalId: [paramedic.hospitalId, [Validators.required]],
+      id: [paramedic.id, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
+      hospitalId: [paramedic.hospitalId, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
       role: [paramedic.role, [Validators.required]],
-      yearsInPractise: [paramedic.yearsInPractise, [Validators.required]],
+      yearsInPractise: [paramedic.yearsInPractise, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
     });
   }
 
@@ -90,9 +90,17 @@ export class AddPersonalComponent implements OnInit {
 
     if (this.edit) {
       this.paramedic.id = this.defParamedicId;
-      this.toasterService.showToast('Nemocnica bola úspešne editovaná.', 'top-center', true);
-      this.paramedicService.putParamedic(this.defParamedicId, this.paramedic).subscribe(
-        _ => this.location.back());
+      this.hospitalService.getHospital(this.paramedic.hospitalId).subscribe(hospital => {
+        if (hospital == null) {
+          this.toasterService.showToast('Takáto nemocnica neexistuje.', 'top-center', false);
+          return;
+        } else {
+          this.paramedicService.putParamedic(this.defParamedicId, this.paramedic).subscribe(x => {
+            this.toasterService.showToast('Zdravotník bol úspešne editovaní.', 'top-center', true);
+            this.location.back()
+          });
+        }
+      });
     } else {
       this.personService.getPerson(this.paramedic.id).subscribe(person => {
         if (person == null) {

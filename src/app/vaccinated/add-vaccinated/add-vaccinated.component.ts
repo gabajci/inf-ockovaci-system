@@ -62,20 +62,20 @@ export class AddVaccinatedComponent implements OnInit {
 
   createVaccinatedForm(): void {
     this.vaccinatedForm = this.fb.group({
-      personId: ['', [Validators.required]],
-      hospitalId: [, [Validators.required]],
+      personId: ['', [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
+      hospitalId: [, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
       vaccineName: ['', [Validators.required]],
-      vaccineNumber: ['', [Validators.required]],
+      vaccineNumber: ['', [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
       date: [new Date(), [Validators.required]],
     });
   }
 
   updateVaccinatedForm(vaccinated: Vaccinated) {
     this.vaccinatedForm = this.fb.group({
-      personId: [vaccinated.personId, [Validators.required]],
-      hospitalId: [vaccinated.hospitalId, [Validators.required]],
+      personId: [vaccinated.personId, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
+      hospitalId: [vaccinated.hospitalId, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
       vaccineName: [vaccinated.vaccineName, [Validators.required]],
-      vaccineNumber: [vaccinated.vaccineNumber, [Validators.required]],
+      vaccineNumber: [vaccinated.vaccineNumber, [Validators.required,Validators.pattern(/^[0-9]\d*$/)]],
       date: [vaccinated.date, [Validators.required]],
     });
   }

@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
     exports: [
@@ -39,7 +40,8 @@ import { MatSelectModule } from '@angular/material/select';
         CommonModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatSelectModule
+        MatSelectModule,
+        FlexLayoutModule
     ],
     declarations: [
     ],

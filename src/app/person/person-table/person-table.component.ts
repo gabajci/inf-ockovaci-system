@@ -12,6 +12,7 @@ import { PersonService } from 'src/app/Core/person-service';
 import { ScrollRestorationService } from 'src/app/Core/table/scroll-restoration.service';
 import { TableService } from 'src/app/Core/table/table.service';
 import { ToasterService } from 'src/app/Core/toaster/toaster-service';
+import { MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'person-table',
@@ -33,8 +34,13 @@ export class PersonTableComponent implements OnInit {
     private dialog: MatDialog,
     private toasterService: ToasterService,    
     private tableService: TableService,    
-    private scrollRestorationService: ScrollRestorationService,
+    private scrollRestorationService: ScrollRestorationService,    
+    public media: MediaObserver,
   ) { }
+
+  filterSign: string = "▼";
+  showFilter: boolean = false;
+
 
   get filter() {
     return this.tableService.person.filter;
@@ -80,6 +86,18 @@ export class PersonTableComponent implements OnInit {
       this.displayedColumns = ['id', 'surname', 'lastName', 'phoneNumber', 'mail', 'actions'];
     }
   }
+
+  changeFilterVisibility(): void {
+    if (this.showFilter) {
+      this.showFilter = false;
+      this.filterSign = "▼";
+    }
+    else {
+      this.showFilter = true;
+      this.filterSign = "▲";
+    }
+  }
+  
 
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {

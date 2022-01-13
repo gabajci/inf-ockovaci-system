@@ -14,6 +14,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { EventEmitterService } from './Core/event-emiter.service';
 import { WhyToVaccinateComponent } from './why-to-vaccinate/why-to-vaccinate.component';
 import { UserOptionsComponent } from './user-options/user-options.component';
+import { BREAKPOINT } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -31,12 +32,33 @@ import { UserOptionsComponent } from './user-options/user-options.component';
   imports: [
     SharedModule,
     BrowserModule,
-    AppRoutingModule,    
+    AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule
   ],
 
-  providers: [EventEmitterService],
+  providers: [EventEmitterService,
+    {
+      provide: BREAKPOINT,
+      useValue: {
+        alias: 'desktop',
+        suffix: 'Desktop',
+        mediaQuery: 'screen and (min-width: 1025px)',
+        overlapping: true
+      },
+      multi: true
+    },
+    {
+      provide: BREAKPOINT,
+      useValue: {
+        alias: 'xs.landscape',
+        suffix: 'XsLandscape',
+        mediaQuery: 'screen and (max-width:1024px)',
+        overlapping: true
+      },
+      multi: true
+    }
+    ,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

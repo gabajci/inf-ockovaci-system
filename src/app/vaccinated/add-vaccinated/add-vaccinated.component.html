@@ -9,23 +9,19 @@
     <form class="form" [formGroup]="vaccinatedForm" (ngSubmit)="onSubmit()">
         <mat-card>
             <div fxLayout="column">
-                <div class="table" fxLayoutGap="5%">
-                    <div *ngIf="!this.edit" fxFlex="45%">
+                <div class="table" fxLayoutGap="5px">
+                    <div *ngIf="!this.edit" >
                         <mat-form-field>
                             <input matInput maxlength="30" formControlName="personId" placeholder="Id osoby">
                         </mat-form-field>
                     </div>
-
-
-                    <div fxFlex="45%">
+                    <div>
                         <mat-form-field>
                             <input matInput formControlName="hospitalId" placeholder="Id nemocnice">
                         </mat-form-field>
                     </div>
-
                 </div>
-
-                <div class="table" fxLayoutGap="5%">
+                <div class="table" fxLayoutGap="5px">
                     <div>
                         <mat-form-field>
                             <mat-select formControlName="vaccineName" placeholder="Názov vakcíny">
@@ -49,7 +45,6 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
-
             </div>
             <div style="display: flex; justify-content: center;">
                 <button mat-raised-button color="primary" type="submit" [disabled]="vaccinatedForm.invalid" mat-button>

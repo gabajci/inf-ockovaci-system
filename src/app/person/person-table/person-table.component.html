@@ -1,9 +1,92 @@
-<div class="center">
-    <h1>Osoby</h1>
-</div>
-<div>
+<ng-template [ngIf]="media.isActive('desktop') && !media.isActive('xs.landscape')">
+    <div class="center">
+        <h1>Osoby</h1>
+    </div>
+    <div>
 
-    <div [formGroup]="filterFormGroup" fxLayout="row" fxLayoutGap="20px" class="center-filter">
+        <div [formGroup]="filterFormGroup" fxLayout="row" fxLayoutGap="5px" class="center-filter">
+            <mat-form-field >
+                <input matInput type="text" formControlName="id" placeholder="Id">
+            </mat-form-field>
+            <mat-form-field >
+                <input matInput type="text" formControlName="surname" placeholder="Meno">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" formControlName="lastName" placeholder="Priezvisko">
+            </mat-form-field>
+            <button mat-raised-button (click)="clearFilterFormGroup()">Zruš filtre</button>
+        </div>
+
+        <div class="center">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> Id </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="surname">
+                    <th mat-header-cell *matHeaderCellDef> Meno </th>
+                    <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef> Priezvisko </th>
+                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="phoneNumber">
+                    <th mat-header-cell *matHeaderCellDef> Telefón </th>
+                    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="mail">
+                    <th mat-header-cell *matHeaderCellDef> Mail </th>
+                    <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <!-- actions -->
+                    <th mat-header-cell *matHeaderCellDef style="width: 90px;">
+                        <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
+                            routerLink="/person/add">
+                            <mat-icon>add_box</mat-icon>Pridaj Osobu
+                        </button>
+                    </th>
+
+                    <td mat-cell *matCellDef="let row; let i=index;">
+                        <button mat-icon-button matTooltip="Uprav osobu" routerLink="/person/edit/{{row.id}}">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <button mat-icon-button matTooltip="Vymaž osobu" (click)="openDialog(row.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</ng-template>
+<ng-template [ngIf]="!media.isActive('desktop') || media.isActive('xs.landscape')">
+
+    <div class="mobile-title-panel">
+        Osoba
+        <button mat-raised-button color="primary" routerLink="/person/add">
+            <mat-icon>add_box</mat-icon>Pridaj Osobu
+        </button>
+    </div>
+
+    <div class="mobile-filter-button">
+        <button mat-raised-button (click)="changeFilterVisibility()">
+            Filter {{this.filterSign}}
+        </button>
+    </div>
+
+    <div *ngIf="this.showFilter" [formGroup]="filterFormGroup" class="mobile-filter">
         <mat-form-field fxFlex>
             <input matInput fxFlex type="text" formControlName="id" placeholder="Id">
         </mat-form-field>
@@ -15,57 +98,64 @@
         </mat-form-field>
         <button mat-raised-button (click)="clearFilterFormGroup()">Zruš filtre</button>
     </div>
-    
-    <div class="center">
-        <table mat-table [dataSource]="dataSource">
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef> Id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="surname">
-                <th mat-header-cell *matHeaderCellDef> Meno </th>
-                <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="lastName">
-                <th mat-header-cell *matHeaderCellDef> Priezvisko </th>
-                <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="phoneNumber">
-                <th mat-header-cell *matHeaderCellDef> Telefón </th>
-                <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="mail">
-                <th mat-header-cell *matHeaderCellDef> Mail </th>
-                <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <!-- actions -->
-                <th mat-header-cell *matHeaderCellDef style="width: 90px;">
-                    <button style="height: 36px; align-self: center;" mat-raised-button color="primary"
-                        routerLink="/person/add">
-                        <mat-icon>add_box</mat-icon>Pridaj Osobu
-                    </button>
-                </th>
-
-                <td mat-cell *matCellDef="let row; let i=index;">
-                    <button mat-icon-button matTooltip="Uprav osobu" routerLink="/person/edit/{{row.id}}">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-
-                    <button mat-icon-button matTooltip="Vymaž osobu" (click)="openDialog(row.id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+    <div *ngFor="let persons of dataSource?.filteredData" class="mobile-version-item">
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Id:
+            </span>
+            <span>
+                {{ persons.id }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Meno:
+            </span>
+            <span class="mobile-data">
+                {{ persons.surname }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Priezvisko:
+            </span>
+            <span class="mobile-data">
+                {{ persons.lastName }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                Tel. číslo:
+            </span>
+            <span class="mobile-data">
+                {{ persons.phoneNumber }}
+            </span>
+        </div>
+        <div class="mobile-field-margin">
+            <span class="mobile-tag">
+                E-mail:
+            </span>
+            <span class="mobile-data">
+                {{ persons.mail }}
+            </span>
+        </div>        
+        <div class="mobile-buttons-bottom">
+            <div>
+                <button mat-icon-button matTooltip="Uprav zľavový kód" routerLink="/person/edit/{{persons.id}}">
+                    <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Vymaž zľavový kód" (click)="openDialog(persons.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+
+                <button mat-icon-button matTooltip="Urob kópiu zľavového kódu"
+                    routerLink="/person/copy/{{persons.id}}">
+                    <mat-icon>file_copy</mat-icon>
+                </button>
+            </div>
+        </div>
     </div>
-</div>
+</ng-template>

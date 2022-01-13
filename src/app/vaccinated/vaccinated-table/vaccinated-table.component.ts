@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
@@ -6,7 +7,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AccountService } from 'src/app/Core/account-service';
 import { DeleteDialogComponent } from 'src/app/Core/delete-dialog/delete-dialog.component';
 import { FilterService } from 'src/app/Core/filter-service';
-import { Paramedic } from 'src/app/Core/paramedic';
 import { ScrollRestorationService } from 'src/app/Core/table/scroll-restoration.service';
 import { TableService } from 'src/app/Core/table/table.service';
 import { Vaccinated } from 'src/app/Core/vaccinated';
@@ -30,13 +30,16 @@ export class VaccinatedTableComponent implements OnInit {
     private tableService: TableService,        
     private filterService: FilterService,
     private dialog: MatDialog,      
-    private scrollRestorationService: ScrollRestorationService,
+    private scrollRestorationService: ScrollRestorationService,     
+    public media: MediaObserver,
   ) { }
 
   dataSource!: MatTableDataSource<Vaccinated>;
   isAdmin: boolean = false;
   filterFormGroup: FormGroup;
   filteredValues = { id: '', personId: '', hospitalId: '', vaccineName:'',date:''};
+  filterSign: string = "▼";
+  showFilter: boolean = false;
 
   get filter() {
     return this.tableService.vaccinated.filter;
@@ -78,7 +81,17 @@ export class VaccinatedTableComponent implements OnInit {
     }
   }
 
-   //xx
+  
+  changeFilterVisibility(): void {
+    if (this.showFilter) {
+      this.showFilter = false;
+      this.filterSign = "▼";
+    }
+    else {
+      this.showFilter = true;
+      this.filterSign = "▲";
+    }
+  }
 
    onFilterFormGroupChanges() {
     this.filterFormGroup.valueChanges.subscribe(vaccinateds => {
