@@ -31,8 +31,7 @@ export class HeaderComponent implements OnInit {
               window.location.pathname.includes("/login") ? 5 :
                 window.location.pathname.includes("/register") ? 6 :
                   window.location.pathname.includes("/person") ? 7 :
-                    window.location.pathname.includes("/why-to-vaccinate") ? 8 :
-                      window.location.pathname.includes("") ? 1 : 0;
+                    window.location.pathname.includes("") ? 1 : 0;
 
     if (this.eventEmitterService.subsVar == undefined) {
       this.eventEmitterService.subsVar = this.eventEmitterService.

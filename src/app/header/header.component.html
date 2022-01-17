@@ -7,8 +7,6 @@
         <div>
             <button [ngClass]="this.selectedTab == 1 ? 'selected-tab' : 'null'" (click)="changeSelectedState(1)"
                 mat-button routerLink="/welcome-page">Úvod</button>
-            <button [ngClass]="this.selectedTab == 8 ? 'selected-tab' : 'null'" (click)="changeSelectedState(8)"
-                mat-button routerLink="/why-to-vaccinate">Prečo sa očkovať</button>
             <button [ngClass]="this.selectedTab == 2 ? 'selected-tab' : 'null'" (click)="changeSelectedState(2)"
                 mat-button routerLink="/hospital">Nemocnice</button>
         </div>

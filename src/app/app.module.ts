@@ -12,7 +12,6 @@ import { SharedModule } from './shared-module';
 import { DeleteDialogComponent } from './Core/delete-dialog/delete-dialog.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { EventEmitterService } from './Core/event-emiter.service';
-import { WhyToVaccinateComponent } from './why-to-vaccinate/why-to-vaccinate.component';
 import { UserOptionsComponent } from './user-options/user-options.component';
 import { BREAKPOINT } from '@angular/flex-layout';
 
@@ -26,7 +25,6 @@ import { BREAKPOINT } from '@angular/flex-layout';
     LoginComponent,
     DeleteDialogComponent,
     AccessDeniedComponent,
-    WhyToVaccinateComponent,
     UserOptionsComponent,
   ],
   imports: [

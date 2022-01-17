@@ -2,3 +2,12 @@
     padding: 7px;
 }
 
+.picture {
+    padding-top: 10px;
+    width:615px;
+    height:480x;
+    @media only screen and (max-width: 1024px) {
+        width:307px;
+        height:240x;
+    }
+}

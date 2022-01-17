@@ -5,7 +5,6 @@ import { RegisterComponent } from './register/register.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AccessGuard } from './Core/access-guard';
-import { WhyToVaccinateComponent } from './why-to-vaccinate/why-to-vaccinate.component';
 import { UserOptionsComponent } from './user-options/user-options.component';
 
 const routes: Routes = [
@@ -13,10 +12,6 @@ const routes: Routes = [
   {
     path: 'welcome-page',    
     component: WelcomePageComponent
-  },
-  {
-    path: 'why-to-vaccinate',
-    component: WhyToVaccinateComponent
   },
   {
     path: 'login',
